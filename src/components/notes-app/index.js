@@ -10,7 +10,6 @@ function NotesApp() {
 	const [activeNotes, setActiveNotes] = useState([]);
 	const [completedNotes, setCompletedNotes] = useState([]);
 	const [otherNotes, setOtherNotes] = useState([]);
-	const [notesArr, setNotesArr] = useState([]);
 	const [showNotes, setShowNotes] = useState([]);
 	const [isActive, setIsActive] = useState({
 		active: false,
@@ -22,8 +21,6 @@ function NotesApp() {
 	const { title, status } = note;
 
 	useEffect(() => {
-		// setNotesArr([...activeNotes, ...completedNotes, ...otherNotes]);
-
 		if (isActive.active) {
 			setShowNotes([...activeNotes]);
 		} else if (isActive.completed) {
@@ -31,7 +28,13 @@ function NotesApp() {
 		} else {
 			setShowNotes([...activeNotes, ...completedNotes, ...otherNotes]);
 		}
-	}, [activeNotes, completedNotes, otherNotes]);
+	}, [
+		activeNotes,
+		completedNotes,
+		otherNotes,
+		isActive.active,
+		isActive.completed
+	]);
 
 	const handleChange = e => {
 		setNote({
